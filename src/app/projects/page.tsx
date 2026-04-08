@@ -122,19 +122,19 @@ export default function ProjectsCatalog() {
             Filter by Category
           </div>
           
-          <nav className="flex flex-col gap-2">
+          <nav className="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-4 lg:pb-0 scrollbar-hide snap-x">
             {CATEGORIES.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`flex items-center justify-between px-5 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 group cursor-pointer ${
+                className={`snap-start shrink-0 flex items-center justify-between gap-4 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 group cursor-pointer ${
                   selectedCategory === category
                     ? "bg-[#006217] text-white shadow-lg shadow-[#006217]/20 translate-x-1"
                     : "bg-background/50 text-muted-foreground hover:bg-white dark:hover:bg-muted/50 hover:text-[#006217] hover:translate-x-1 border border-transparent hover:border-border/60"
                 }`}
               >
-                {category}
-                <ChevronRight size={14} className={`transition-transform duration-300 ${selectedCategory === category ? "rotate-90 text-white" : "group-hover:translate-x-1 opacity-40"}`} />
+                <span className="whitespace-nowrap">{category}</span>
+                <ChevronRight size={14} className={`hidden lg:block transition-transform duration-300 ${selectedCategory === category ? "rotate-90 text-white" : "group-hover:translate-x-1 opacity-40"}`} />
               </button>
             ))}
           </nav>
