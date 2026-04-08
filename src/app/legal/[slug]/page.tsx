@@ -195,7 +195,7 @@ export default function PolicyPage({ params }: { params: Promise<{ slug: string 
               By accessing or using this website, you agree to the {" "}
               <Link 
                 href="/legal/terms-and-conditions" 
-                className="text-[#006217] font-black underline underline-offset-8 decoration-2 hover:decoration-[#006217]/40 transition-all cursor-pointer"
+                className="text-[#006217] font-black transition-all cursor-pointer"
               >
                 terms
               </Link>

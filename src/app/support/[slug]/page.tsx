@@ -266,11 +266,11 @@ const ContactSection = () => {
           <div className="space-y-3">
             <div className="p-4 bg-background/50 rounded-2xl border border-border/50 flex flex-col gap-1">
               <span className="text-[10px] font-black uppercase opacity-40">Sales Department</span>
-              <a href="mailto:sales@kazemaportabletoilets.com" className="text-xs font-bold text-[#006217] hover:underline break-all">sales@kazemaportabletoilets.com</a>
+              <a href="mailto:sales@kazemaportabletoilets.com" className="text-xs font-bold text-[#006217] break-all">sales@kazemaportabletoilets.com</a>
             </div>
             <div className="p-4 bg-background/50 rounded-2xl border border-border/50 flex flex-col gap-1">
               <span className="text-[10px] font-black uppercase opacity-40">Rentals & Hire</span>
-              <a href="mailto:rentals@kazemaportabletoilets.com" className="text-xs font-bold text-[#006217] hover:underline break-all">rentals@kazemaportabletoilets.com</a>
+              <a href="mailto:rentals@kazemaportabletoilets.com" className="text-xs font-bold text-[#006217] break-all">rentals@kazemaportabletoilets.com</a>
             </div>
           </div>
         </div>

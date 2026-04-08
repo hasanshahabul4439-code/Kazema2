@@ -17,74 +17,105 @@ export default function FloatingContact() {
     {
       id: "whatsapp",
       label: "WhatsApp",
+      shortLabel: "WhatsApp",
       href: "https://wa.me/971800529362",
       icon: <WhatsAppIcon />,
       bg: "bg-[#25D366]",
       hoverBg: "hover:bg-[#1da851]",
       text: "text-white",
+      mobileText: "text-foreground",
     },
     {
       id: "phone",
       label: "800 KAZEMA",
+      shortLabel: "Calls",
       href: "tel:800529362",
       icon: <Phone className="w-5 h-5" />,
       bg: "bg-[#006217]",
       hoverBg: "hover:bg-[#004e12]",
       text: "text-white",
+      mobileText: "text-foreground",
     },
     {
       id: "email",
       label: "Email Us",
+      shortLabel: "Email",
       href: "mailto:sales@kazemaportabletoilets.com",
       icon: <Mail className="w-5 h-5" />,
       bg: "bg-foreground dark:bg-white",
       hoverBg: "hover:opacity-80",
       text: "text-background dark:text-foreground",
+      mobileText: "text-foreground",
     },
   ];
 
   return (
-    <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-0 shadow-2xl">
-      {contacts.map((c, i) => (
-        <a
-          key={c.id}
-          href={c.href}
-          target={c.id === "whatsapp" ? "_blank" : undefined}
-          rel={c.id === "whatsapp" ? "noopener noreferrer" : undefined}
-          onMouseEnter={() => setHovered(c.id)}
-          onMouseLeave={() => setHovered(null)}
-          className={`
-            group flex items-center gap-3 overflow-hidden
-            ${c.bg} ${c.hoverBg} ${c.text}
-            transition-all duration-300 ease-in-out
-            ${i === 0 ? "rounded-tl-xl" : ""}
-            ${i === contacts.length - 1 ? "rounded-bl-xl" : ""}
-          `}
-          style={{
-            width: hovered === c.id ? "160px" : "48px",
-            height: "48px",
-            paddingLeft: "14px",
-            paddingRight: "12px",
-          }}
-        >
-          {/* Icon — always visible */}
-          <span className="flex-shrink-0">{c.icon}</span>
-
-          {/* Label — slides in on hover */}
-          <span
-            className="text-xs font-bold uppercase tracking-wider whitespace-nowrap overflow-hidden transition-all duration-300"
+    <>
+      {/* ───────────────────────────────────────────────────────── */}
+      {/* 1. DESKTOP FLOATING SIDEBAR                               */}
+      {/* ───────────────────────────────────────────────────────── */}
+      <div className="hidden md:flex fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col items-end gap-0">
+        {contacts.map((c, i) => (
+          <a
+            key={c.id}
+            href={c.href}
+            target={c.id === "whatsapp" ? "_blank" : undefined}
+            rel={c.id === "whatsapp" ? "noopener noreferrer" : undefined}
+            onMouseEnter={() => setHovered(c.id)}
+            onMouseLeave={() => setHovered(null)}
+            className={`
+              group flex items-center gap-3 overflow-hidden shadow-lg
+              ${c.bg} ${c.hoverBg} ${c.text}
+              transition-all duration-300 ease-in-out
+              ${i === 0 ? "rounded-tl-xl" : ""}
+              ${i === contacts.length - 1 ? "rounded-bl-xl" : ""}
+            `}
             style={{
-              opacity: hovered === c.id ? 1 : 0,
-              maxWidth: hovered === c.id ? "120px" : "0px",
+              width: hovered === c.id ? "160px" : "48px",
+              height: "48px",
+              paddingLeft: "14px",
+              paddingRight: "12px",
             }}
           >
-            {c.label}
-          </span>
-        </a>
-      ))}
+            <span className="flex-shrink-0">{c.icon}</span>
+            <span
+              className="text-xs font-bold uppercase tracking-wider whitespace-nowrap overflow-hidden transition-all duration-300"
+              style={{
+                opacity: hovered === c.id ? 1 : 0,
+                maxWidth: hovered === c.id ? "120px" : "0px",
+              }}
+            >
+              {c.label}
+            </span>
+          </a>
+        ))}
+      </div>
 
-      {/* Decorative side line */}
-      <div className="absolute left-0 top-0 w-[2px] h-full bg-white/10 rounded-full" />
-    </div>
+      {/* ───────────────────────────────────────────────────────── */}
+      {/* 2. REFINED MOBILE BOTTOM BAR (WHATSAPP-STYLE CLEAN)      */}
+      {/* ───────────────────────────────────────────────────────── */}
+      <div className="md:hidden fixed bottom-0 left-0 w-full z-[150] bg-background border-t border-border/80 pt-2 pb-1.5 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+        <div className="flex items-center justify-around px-2">
+          {contacts.map((c) => (
+            <a
+              key={c.id}
+              href={c.href}
+              className="flex flex-col items-center gap-1 group active:scale-95 transition-transform"
+              target={c.id === "whatsapp" ? "_blank" : undefined}
+              rel={c.id === "whatsapp" ? "noopener noreferrer" : undefined}
+            >
+              <div className="relative px-5 py-1 rounded-full group-hover:bg-muted/50 transition-colors">
+                <div className={`${c.mobileText} opacity-90`}>
+                  {c.icon}
+                </div>
+              </div>
+              <span className="text-[11px] font-bold tracking-tight text-foreground/90">
+                {c.shortLabel}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </>
   );
 }

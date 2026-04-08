@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import CustomCursor from "@/components/CustomCursor";
+import FloatingContact from "@/components/FloatingContact";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -51,7 +52,10 @@ export default function RootLayout({
       <body className="min-h-full w-full flex flex-col overflow-x-hidden">
         <CustomCursor />
         <Header />
-        {children}
+        <FloatingContact />
+        <main className="flex-1 flex flex-col pt-16 md:pt-[110px] pb-16 md:pb-0">
+          {children}
+        </main>
       </body>
     </html>
   );

@@ -254,7 +254,7 @@ export default function SingleJobPage() {
               </div>
               <div className="text-white">
                  <p className="text-[9px] font-black uppercase tracking-widest opacity-60">Recruitment Support</p>
-                 <p className="font-bold underline">recruitment@kazemaglobal.com</p>
+                 <p className="font-bold">recruitment@kazemaglobal.com</p>
               </div>
             </a>
             <button className="bg-white text-[#006217] px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-[11px] hover:bg-[#91f8b7] transition-all active:scale-95 shadow-xl">

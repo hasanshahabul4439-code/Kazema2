@@ -184,7 +184,7 @@ export default function ProjectsCatalog() {
               <p className="text-muted-foreground font-bold tracking-tight">No projects found in this category.</p>
               <button 
                 onClick={() => {setSelectedCategory("All Projects"); setSearchQuery("");}}
-                className="mt-4 text-[#006217] text-xs font-black uppercase tracking-widest hover:underline cursor-pointer"
+                className="mt-4 text-[#006217] text-xs font-black uppercase tracking-widest cursor-pointer"
               >
                 Reset Filters
               </button>

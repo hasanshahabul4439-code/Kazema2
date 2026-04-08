@@ -178,7 +178,7 @@ export default function CareersPage() {
               <div className="text-center py-20 border-2 border-dashed border-border rounded-3xl">
                 <Search size={48} className="mx-auto text-muted-foreground opacity-20 mb-4" />
                 <p className="text-muted-foreground font-black uppercase tracking-widest text-xs">No matching positions found</p>
-                <button onClick={() => {setSelectedDept("All Departments"); setSelectedLoc("All Locations");}} className="mt-4 text-[#006217] text-xs font-black uppercase tracking-widest hover:underline cursor-pointer">Reset Filters</button>
+                <button onClick={() => {setSelectedDept("All Departments"); setSelectedLoc("All Locations");}} className="mt-4 text-[#006217] text-xs font-black uppercase tracking-widest cursor-pointer">Reset Filters</button>
               </div>
             )}
           </div>
@@ -253,7 +253,7 @@ export default function CareersPage() {
                   <label className="text-[10px] font-black uppercase tracking-widest text-[#006217] ml-1">Upload CV (PDF/DOC)</label>
                   <div className="w-full border-2 border-dashed border-border rounded-[2rem] p-12 text-center bg-muted/10 hover:bg-[#006217]/5 hover:border-[#006217]/40 transition-all cursor-pointer group">
                     <CloudUpload size={48} className="mx-auto text-muted-foreground mb-4 group-hover:text-[#006217] transition-colors" />
-                    <p className="text-sm font-black tracking-tight text-foreground uppercase">Drag & drop or <span className="text-[#006217] underline">browse files</span></p>
+                    <p className="text-sm font-black tracking-tight text-foreground uppercase">Drag & drop or <span className="text-[#006217]">browse files</span></p>
                     <p className="text-xs text-muted-foreground mt-2 font-medium">Supported formats: PDF, DOC, DOCX (Max 10MB)</p>
                   </div>
                 </div>

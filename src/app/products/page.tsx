@@ -233,7 +233,7 @@ export default function ProductsPage() {
               <p className="text-lg font-medium text-muted-foreground">No products found for this category.</p>
               <button
                 onClick={() => setActiveCategory("All Products")}
-                className="mt-6 text-[#006217] dark:text-[#28a745] underline font-semibold underline-offset-4"
+                className="mt-6 text-[#006217] dark:text-[#28a745] font-semibold"
               >
                 Clear Filters
               </button>
