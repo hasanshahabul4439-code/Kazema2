@@ -1,11 +1,14 @@
-import { Hero3 } from "@/components/hero3";
 import Card from "@/components/card";
 import SectionHeader from "@/components/SectionHeader";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import HeroSection from "@/components/HeroSection";
 import { CheckCircle } from "lucide-react";
 import CounterStats from "@/components/CounterStats";
 import ProductSection from "@/components/ProductSection";
+import OurClients from "@/components/OurClients";
+import BlogSection from "@/components/BlogSection";
+import ReviewSection from "@/components/ReviewSection";
 
 export default function Home() {
   const cards = [
@@ -16,8 +19,9 @@ export default function Home() {
       image:
         "https://res.cloudinary.com/dtpttuebn/image/upload/v1774588006/Interior_Bar_Image_k1fray.webp",
       tag: "Sanitation",
-      location: "Dubai Marina",
+      location: "Dubai",
       date: "Feb 2026",
+      slug: "luxury-yacht-event"
     },
     {
       title: "Elevating Modern Urban Jungle Lifestyles",
@@ -26,8 +30,9 @@ export default function Home() {
       image:
         "https://res.cloudinary.com/dtpttuebn/image/upload/v1774588006/Interior_Bar_Image_k1fray.webp",
       tag: "Urban Edit",
-      location: "Downtown Dubai",
+      location: "Sharjah",
       date: "Mar 2026",
+      slug: "urban-jungle-lifestyles"
     },
     {
       title: "Curating Restorative Zen Garden Spaces",
@@ -38,43 +43,36 @@ export default function Home() {
       tag: "Mindfulness",
       location: "Abu Dhabi",
       date: "Apr 2026",
+      slug: "zen-garden-spaces"
     },
   ];
   return (
-    <main className="px-2 py-2 max-w-7xl mx-auto">
-      <Hero3 className="p-4" />
-      <section className="flex flex-col items-center justify-center text-center rounded-3xl bg-card text-card-foreground shadow-sm p-8 md:p-16 my-8 mx-auto max-w-5xl w-full">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[45px] font-medium tracking-tight mb-6 md:mb-8 leading-[1.2] md:leading-[1.1]">
-          <span className="text-foreground">Kazema</span>{" "}
-          <span className="text-[#006217] dark:text-[#28a745]">
-            Built for Every Space.<br className="hidden md:block" /> Designed for Real-World Use.
-          </span>
-        </h2>
-        <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-3xl mx-auto mb-8 leading-relaxed">
-          Kazema delivers durable, high-quality modular solutions engineered for flexibility and performance. From portable toilets and cabins to handwash stations and custom units, our products are designed to meet the demands of construction sites, events, commercial spaces, and remote locations across the UAE. We combine fast delivery, practical design, and long-lasting materials—so you get reliable solutions without delays or compromise.
-        </p>
-        <div className="pt-2 pb-4">
-          <Button className="bg-[#006217] hover:bg-[#004e12] text-white dark:bg-[#006217] dark:hover:bg-[#00811e] rounded-full px-8 py-6 text-sm sm:text-base font-semibold shadow hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-            Read Our Story
-          </Button>
-        </div>
-      </section>
-      <div>
+    <main className="w-full max-w-7xl mx-auto px-4 md:px-8 py-4">
+      <HeroSection
+        titleBlack="Kazema Built for Every Space, "
+        titleGreen="Designed for Real-World Use."
+        description="Kazema delivers durable, high-quality modular solutions engineered for flexibility and performance. From portable toilets to cabins, our products are built to meet the rigorous demands of construction sites, events, and remote locations across the UAE."
+        primaryBtnText="Get Quote"
+        secondaryBtnText="Explore Products"
+        imageSrc="https://www.kazemaportabletoilets.com/wp-content/uploads/Dollarphotoclub_14369744-scaled_11zon-1.webp"
+      />
+
+      <div className="flex flex-col w-full mt-10">
         {/* Other sections */}
-        <SectionHeader
-          title="What We’ve Built"
-          description="Every project reflects our commitment to quality, innovation, and unmatched reliability."
-        />
-        <section className="py-2">
+        <section className="w-full">
+          <SectionHeader
+            title="What We’ve Built"
+            description="Every project reflects our commitment to quality, innovation, and unmatched reliability."
+          />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {cards.map((card, index) => (
-              <Card key={index} {...card} />
+              <Card key={index} {...card} href={`/projects/${card.slug}`} />
             ))}
           </div>
         </section>
 
         {/* About Section - Empowering Communities */}
-        <section className="py-20 md:py-32 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-5 items-center">
+        <section className="py-10 md:py-16 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-5 items-center">
           {/* Left Text Column */}
           <div className="flex flex-col gap-6">
             <span className="text-muted-foreground font-semibold tracking-wider text-sm md:text-base">
@@ -102,7 +100,7 @@ export default function Home() {
 
             <div className="pt-6">
               <Button className="bg-[#006217] hover:bg-[#004e12] text-white dark:bg-[#006217] dark:hover:bg-[#00811e] px-8 py-6 text-sm sm:text-base font-semibold shadow hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 w-max">
-                Get Started
+                Read More About Us
               </Button>
             </div>
           </div>
@@ -157,6 +155,16 @@ export default function Home() {
 
         {/* Product Section */}
         <ProductSection />
+
+        {/* Our Clients Section */}
+        <OurClients />
+
+        {/* Client Reviews Section (New Slider) */}
+        <ReviewSection />
+
+        {/* Blog Section */}
+        <BlogSection />
+
       </div>
     </main>
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { Building2, Users, Mail, MessageSquare, CheckCircle } from "lucide-react";
 
 const stats = [
   {
@@ -21,17 +22,30 @@ const stats = [
 
 export default function CounterStats() {
   return (
-    <section className="w-full relative overflow-hidden bg-muted/30 dark:bg-muted/10 border-y border-border pointer-events-auto">
-      {/* Subtle diagonal striped background texture */}
-      <div 
-        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
-        style={{
-          backgroundImage: "repeating-linear-gradient(45deg, #000 0, #000 1px, transparent 0, transparent 50%)",
-          backgroundSize: "10px 10px"
-        }}
-      />
-      
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20 relative z-10">
+    <section className="w-full relative overflow-hidden bg-muted/30 dark:bg-muted/10 pointer-events-auto">
+      {/* Floating Icon Texture Layer */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-[0.03] dark:opacity-[0.05]">
+        <div className="absolute top-[10%] left-[5%] animate-bounce scale-150" style={{ animationDuration: '8s' }}>
+          <Building2 size={120} />
+        </div>
+        <div className="absolute top-[60%] left-[15%] animate-pulse scale-110" style={{ animationDuration: '6s' }}>
+          <CheckCircle size={80} />
+        </div>
+        <div className="absolute top-[20%] right-[10%] animate-bounce scale-125" style={{ animationDuration: '10s' }}>
+          <Users size={100} />
+        </div>
+        <div className="absolute top-[70%] right-[20%] animate-pulse" style={{ animationDuration: '7s' }}>
+          <Mail size={90} />
+        </div>
+        <div className="absolute top-[40%] left-[45%] animate-bounce scale-150 opacity-50" style={{ animationDuration: '12s' }}>
+          <MessageSquare size={130} />
+        </div>
+        
+        {/* Subtle Horizontal Lining */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_49%,rgba(0,0,0,0.1)_50%,transparent_51%)] bg-[length:100%_40px]"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-16 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 divide-x-0 md:divide-x divide-border/50">
           {stats.map((stat, index) => (
             <div 
