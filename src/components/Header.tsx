@@ -1,18 +1,28 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import React, { useState, useEffect, useTransition } from "react";
 import Image from "next/image";
 import { 
   ChevronDown, Phone, Search, Headset, LogIn, Menu, X, Globe, 
-  ChevronRight, MessageSquare, Camera, Send, Users, MapPin, Mail, ArrowUpRight
+  ChevronRight, MessageSquare, Camera, Send, Users, MapPin, Mail, ArrowUpRight,
+  History, Factory, Cpu, Award, Zap, Home, ShieldCheck, Droplets, Box, Wrench
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { useTranslations, useLocale } from 'next-intl';
+import { Link, usePathname, useRouter } from '@/i18n/routing';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [expandedMobileLinks, setExpandedMobileLinks] = useState<string[]>([]);
+  const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  
+  const t = useTranslations('Header');
+  const navT = useTranslations('Nav');
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -26,6 +36,13 @@ export default function Header() {
     };
   }, [isMobileMenuOpen]);
 
+  const onLanguageChange = (nextLocale: 'en' | 'ar') => {
+    startTransition(() => {
+      router.replace(pathname, { locale: nextLocale });
+    });
+    setIsLangOpen(false);
+  };
+
   // Handle mobile accordion toggle
   const toggleMobileLink = (name: string) => {
     setExpandedMobileLinks(prev => 
@@ -34,38 +51,38 @@ export default function Header() {
   };
 
   const navLinks = [
-    { name: "Home", href: "/" },
+    { name: navT("home"), href: "/" },
     { 
-      name: "About Us", 
+      name: navT("aboutUs"), 
       href: "/about-us",
       sublinks: [
-        { name: "Our Story", href: "/about-us/our-story" },
-        { name: "Our Factory", href: "/about-us/our-factory" },
-        { name: "Manufacturing Process", href: "/about-us/manufacturing-process" },
-        { name: "Certifications", href: "/about-us/certifications" },
+        { name: "Our Story", href: "/about-us/our-story", icon: History, desc: "Our journey since foundation" },
+        { name: "Our Factory", href: "/about-us/our-factory", icon: Factory, desc: "Where innovation happens" },
+        { name: "Manufacturing Process", href: "/about-us/manufacturing-process", icon: Cpu, desc: "Tech-driven construction" },
+        { name: "Certifications", href: "/about-us/certifications", icon: Award, desc: "Quality guaranteed" },
       ]
     },
     { 
-      name: "Products", 
+      name: navT("products"), 
       href: "/products",
       sublinks: [
-        { name: "Portable Toilets", href: "/products?cat=Portable+Toilets" },
-        { name: "Portable Cabins", href: "/products?cat=Portable+Cabins" },
-        { name: "Security Cabins", href: "/products?cat=Security+Cabins" },
-        { name: "Handwash Stations", href: "/products?cat=Handwash+Stations" },
-        { name: "Container Conversion", href: "/products?cat=Container+Conversion" },
+        { name: "Portable Toilets", href: "/products?cat=Portable+Toilets", icon: Zap, desc: "Premium sanitation units" },
+        { name: "Portable Cabins", href: "/products?cat=Portable+Cabins", icon: Home, desc: "Advanced modular housing" },
+        { name: "Security Cabins", href: "/products?cat=Security+Cabins", icon: ShieldCheck, desc: "Safe & durable kiosks" },
+        { name: "Handwash Stations", href: "/products?cat=Handwash+Stations", icon: Droplets, desc: "Hygienic station solutions" },
+        { name: "Container Conversion", href: "/products?cat=Container+Conversion", icon: Box, desc: "Customized cargo spaces" },
       ]
     },
     { 
-      name: "Services", 
+      name: navT("services"), 
       href: "/services",
       sublinks: [
-        { name: "Rental Toilets", href: "/services?cat=Rental+Toilets" },
-        { name: "Handwash Stations", href: "/services?cat=Handwash+Stations" },
+        { name: "Rental Toilets", href: "/services?cat=Rental+Toilets", icon: Wrench, desc: "Short & long term rentals" },
+        { name: "Handwash Stations", href: "/services?cat=Handwash+Stations", icon: Droplets, desc: "Mobile hygiene services" },
       ]
     },
-    { name: "Projects", href: "/projects" },
-    { name: "Resource", href: "/resources" },
+    { name: navT("projects"), href: "/projects" },
+    { name: navT("resources"), href: "/resources" },
   ];
 
   return (
@@ -85,10 +102,34 @@ export default function Header() {
             {/* Right: Auth, Lang & Theme Toggle */}
             <div className="flex items-center gap-6">
               <div className="hidden sm:flex items-center gap-4">
-                <div className="flex items-center gap-1.5 cursor-pointer hover:text-[#006217] transition-colors group">
-                  <Globe className="w-3 h-3 text-[#006217] group-hover:scale-110 transition-transform" />
-                  <span>English</span>
-                  <ChevronDown className="w-2.5 h-2.5" />
+                <div className="relative">
+                  <button 
+                    onClick={() => setIsLangOpen(!isLangOpen)}
+                    className="flex items-center gap-1.5 cursor-pointer hover:text-[#006217] transition-colors group outline-none"
+                    disabled={isPending}
+                  >
+                    <Globe className="w-3 h-3 text-[#006217] group-hover:scale-110 transition-transform" />
+                    <span>{locale === 'en' ? 'English' : 'العربية'}</span>
+                    <ChevronDown className={`w-2.5 h-2.5 transition-transform ${isLangOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {/* Language Dropdown */}
+                  {isLangOpen && (
+                    <div className="absolute top-[calc(100%+8px)] left-0 w-36 bg-white/95 dark:bg-card/95 backdrop-blur-xl border border-border/40 shadow-2xl rounded-xl py-2 z-[110] animate-in fade-in slide-in-from-top-2 duration-200">
+                      <button
+                        onClick={() => onLanguageChange('en')}
+                        className={`w-full text-left px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider hover:bg-[#006217]/5 transition-colors ${locale === 'en' ? 'text-[#006217]' : 'text-muted-foreground'}`}
+                      >
+                        English
+                      </button>
+                      <button
+                        onClick={() => onLanguageChange('ar')}
+                        className={`w-full text-right px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider hover:bg-[#006217]/5 transition-colors ${locale === 'ar' ? 'text-[#006217]' : 'text-muted-foreground'} font-arabic`}
+                      >
+                        العربية
+                      </button>
+                    </div>
+                  )}
                 </div>
                 
                 <div className="h-2.5 w-px bg-border/40" />
@@ -101,19 +142,20 @@ export default function Header() {
               <div className="flex items-center gap-4">
                 <Link href="/login" className="hover:text-[#006217] transition-colors flex items-center gap-1 font-medium">
                   <LogIn className="w-3 h-3" />
-                  LOGIN
+                  {t('login')}
                 </Link>
                 <Link 
                   href="/signup" 
                   className="bg-[#006217] text-white px-3 py-1 rounded hover:bg-[#004e12] transition-colors font-semibold shadow-sm text-[10px]"
                 >
-                  SIGN UP
+                  {t('signup')}
                 </Link>
               </div>
             </div>
           </div>
         </div>
       </header>
+
 
       {/* ───────────────────────────────────────────────────────── */}
       {/* 2. MAIN NAVIGATION BAR (STICKY AT TOP ON SCROLL)         */}
@@ -158,19 +200,41 @@ export default function Header() {
                 {/* Desktop Dropdown Content */}
                 {link.sublinks && (
                   <div 
-                    className={`absolute top-full left-0 w-56 bg-white dark:bg-card border border-border/40 shadow-xl rounded-b-xl py-3 transform transition-all duration-300 origin-top
+                    className={`absolute top-[calc(100%-10px)] left-1/2 -translate-x-1/2 w-[480px] bg-white/95 dark:bg-card/95 backdrop-blur-xl border border-border/40 shadow-2xl rounded-2xl p-4 transform transition-all duration-300 origin-top
                       ${activeDropdown === link.name ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"}
                     `}
                   >
-                    {link.sublinks.map((sub) => (
-                      <Link
-                        key={sub.name}
-                        href={sub.href}
-                        className="block px-5 py-2.5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground hover:text-[#006217] hover:bg-[#006217]/5 transition-all"
-                      >
-                        {sub.name}
+                    <div className="grid grid-cols-2 gap-2">
+                      {link.sublinks.map((sub) => (
+                        <Link
+                          key={sub.name}
+                          href={sub.href}
+                          className="group/item flex items-start gap-4 p-3 rounded-xl hover:bg-[#006217]/5 transition-all"
+                        >
+                          <div className="mt-0.5 p-2 rounded-lg bg-[#006217]/5 text-[#006217] group-hover/item:bg-[#006217] group-hover/item:text-white transition-all">
+                            {sub.icon && <sub.icon className="w-4 h-4" />}
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-[13px] font-bold text-foreground group-hover/item:text-[#006217] transition-colors">
+                              {sub.name}
+                            </span>
+                            {sub.desc && (
+                              <span className="text-[11px] text-muted-foreground line-clamp-1">
+                                {sub.desc}
+                              </span>
+                            )}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+
+                    {/* Footer for the dropdown */}
+                    <div className="mt-4 pt-4 border-t border-border/10 flex items-center justify-between px-2">
+                      <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium">Kazema Quality Guaranteed</span>
+                      <Link href={link.href} className="text-[10px] text-[#006217] font-bold uppercase tracking-widest hover:underline flex items-center gap-1">
+                        View All <ArrowUpRight className="w-3 h-3" />
                       </Link>
-                    ))}
+                    </div>
                   </div>
                 )}
               </div>
@@ -184,13 +248,13 @@ export default function Header() {
               className="group flex items-center gap-2 bg-[#f8f9fa] dark:bg-muted/30 hover:bg-[#006217]/5 border border-border/40 px-5 py-2.5 rounded-full transition-all duration-300"
             >
               <Headset className="w-4 h-4 text-[#006217]" />
-              <span className="text-[11px] font-bold uppercase tracking-wider text-foreground">Support</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-foreground">{t('support')}</span>
             </Link>
 
             <div className="relative group flex items-center">
               <input 
                 type="text" 
-                placeholder="Search..." 
+                placeholder={t('search')} 
                 className="bg-[#f8f9fa] dark:bg-muted/30 border border-border/40 px-4 py-2.5 pr-10 rounded-lg text-[11px] font-light w-32 xl:w-44 focus:w-56 focus:outline-none focus:border-[#006217]/20 transition-all duration-500"
               />
               <Search className="absolute right-3.5 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -332,14 +396,14 @@ export default function Header() {
                   className="flex-1 text-center py-3.5 text-[11px] font-bold uppercase tracking-widest border border-border/60 rounded-xl hover:bg-muted/50 transition-all"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Log In
+                  {t('login')}
                 </Link>
                 <Link 
                   href="/signup" 
                   className="flex-1 text-center py-3.5 text-[11px] font-bold uppercase tracking-widest bg-[#006217] text-white rounded-xl shadow-lg hover:shadow-xl hover:bg-[#004e12] transition-all"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Sign Up
+                  {t('signup')}
                 </Link>
               </div>
             </div>

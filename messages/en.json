@@ -1,0 +1,17 @@
+{
+  "Header": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "support": "Support",
+    "search": "Search...",
+    "language": "English"
+  },
+  "Nav": {
+    "home": "Home",
+    "aboutUs": "About Us",
+    "products": "Products",
+    "services": "Services",
+    "projects": "Projects",
+    "resources": "Resources"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "Header": {
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "support": "الدعم",
+    "search": "بحث...",
+    "language": "العربية"
+  },
+  "Nav": {
+    "home": "الرئيسية",
+    "aboutUs": "من نحن",
+    "products": "المنتجات",
+    "services": "الخدمات",
+    "projects": "المشاريع",
+    "resources": "الموارد"
+  }
+}
